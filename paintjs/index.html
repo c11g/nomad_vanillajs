@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="sytle.css">
+  <title>paintjs</title>
+</head>
+<body>
+<canvas id="jsCanvas" class="canvas"></canvas>
+<div class="controls">
+  <div class="controls__range">
+    <input type="range" id="jsRange" min="1" max="10" value="3" step="1">
+  </div>
+  <div class="controls__buttons">
+    <button type="button" id="jsMode">PAINT MODE</button>
+    <button type="button" id="jsSave">SAVE</button>
+    <button type="button" id="jsClear">CLEAR</button>
+  </div>
+  <div class="controls__colors" id="jsColors">
+    <div class="controls__color jsColor" style="background: #2c2c2c;"></div>
+    <div class="controls__color jsColor" style="background: #ffffff;"></div>
+    <div class="controls__color jsColor" style="background: #ff3b30;"></div>
+    <div class="controls__color jsColor" style="background: #ff9500;"></div>
+    <div class="controls__color jsColor" style="background: #ffcc00;"></div>
+    <div class="controls__color jsColor" style="background: #4cd963;"></div>
+    <div class="controls__color jsColor" style="background: #5ac8fa;"></div>
+    <div class="controls__color jsColor" style="background: #0579ff;"></div>
+    <div class="controls__color jsColor" style="background: #5856d6;"></div>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
