@@ -25,8 +25,8 @@ function paintTodo(text){
   const span = document.createElement('span');
   const newId = todos.length + 1;
   span.innerText = text;
-  li.appendChild(delBtn);
   li.appendChild(span);
+  li.appendChild(delBtn);
   li.id = newId;
   todoList.appendChild(li);
   updateTodo({
