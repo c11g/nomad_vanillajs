@@ -1,23 +1,78 @@
 body {
-  background-color: #ecf0f1;
-  transition: all ease .2s;
+  margin: 0;
+}
+
+.wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-size: cover;
+}
+
+.wrap::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,.3);
+  content: '';
+}
+
+.content {
+  z-index: 1;
+  position: relative;
+  width: 70%;
 }
 
 .btn {
   cursor: pointer;
 }
 
-h1 {
-  color: #34495e;
-  transition: color 0.5s ease-in-out;
+.title {
+  margin: 0;
+  font-size: 8em;
+  color: #fff;
+  text-align: center;
 }
 
-.form,
+.weather {
+  margin-bottom: 20px;
+  color: #fff;
+  text-align: center;
+}
+
+.form {
+  display: none;
+}
+
+.input {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  padding: 8px 15px;
+}
+
 .greetings {
   display: none;
+  font-size: 1.8em;
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
 }
 
 .showing {
   display: block;
 }
 
+.list {
+  margin: 30px auto;
+  width: 50%;
+  color: #fff;
+}
+
+.list button {
+  margin-left: 10px;
+}

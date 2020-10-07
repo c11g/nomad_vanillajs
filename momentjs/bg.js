@@ -1,10 +1,9 @@
-const body = document.querySelector('body');
+const wrap = document.querySelector('.wrap');
 
 const IMAGE_COUNT = 4;
 
 function printImage(imgNumber){
-  body.style.backgroundImage = `url(images/${imgNumber}.jpg)`;
-  body.style.backgroundSize = `cover`;
+  wrap.style.backgroundImage = `url(images/${imgNumber}.jpg)`;
 }
 
 function genRandomNumber(){
