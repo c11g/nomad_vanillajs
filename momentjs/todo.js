@@ -9,30 +9,54 @@ let todos = [];
 function handleDeleteTodo(event){
   const parentLI = event.target.parentElement;
   todos = todos.filter(todo => todo.id !== parseFloat(parentLI.id));
-  parentLI.remove();
+  renderTodo();
   saveTodos();
 }
 
-function updateTodo(todo){
+function handleToggleTodo(event){
+  const { target } = event;
+  let status;
+  switch (target.dataset.status) {
+    case "is_ready": 
+      status = "is_progress";
+    break;
+    case "is_progress": 
+      status = "is_done";
+    break;
+    default:
+      status = "is_ready";
+  }
+  target.dataset.status = status;
+  todos = todos.map(todo => {
+    if (todo.id === parseFloat(target.id)) {
+      todo.status = status;
+    }
+    return todo;
+  });
+  renderTodo();
+  saveTodos();
+}
+
+function addTodo(todo){
   todos.push(todo);
 }
 
-function paintTodo(text){
+function paintTodo({id, text, status}){
   const li = document.createElement('li');
   const delBtn = document.createElement('button');
-  delBtn.innerHTML = "🙅‍♂️";
+  delBtn.classList.add("delete");
+  delBtn.innerHTML = "del";
   delBtn.addEventListener('click', handleDeleteTodo);
   const span = document.createElement('span');
-  const newId = todos.length + 1;
+  span.classList.add("task");
   span.innerText = text;
   li.appendChild(span);
   li.appendChild(delBtn);
-  li.id = newId;
+  li.classList.add("item");
+  li.id = id;
+  li.dataset.status = status;
+  li.addEventListener('click', handleToggleTodo);
   todoList.appendChild(li);
-  updateTodo({
-    text: text,
-    id: newId,
-  });
 }
 
 function saveTodos(){
@@ -41,23 +65,36 @@ function saveTodos(){
 
 function handleTodoSubmit(event){
   event.preventDefault();
-  const currentValue = todoInput.value;
-  paintTodo(currentValue)
+  const todoObj = {
+    id: Date.now(),
+    text: todoInput.value,
+    status: "is_ready"
+  }
+  addTodo(todoObj);
+  renderTodo();
+  saveTodos();
   todoInput.value = '';
   todoInput.focus();
-  saveTodos();
+}
+
+function renderTodo() {
+  todoList.innerHTML = '';
+  todos.forEach(todo => {
+    paintTodo(todo)
+  })
 }
 
 function loadTodos(){
   const loadedTodos = localStorage.getItem(TODOS_LS);
   if(loadedTodos){
     const parsedTodos = JSON.parse(loadedTodos);
-    parsedTodos.forEach(todo => paintTodo(todo.text));
+    todos = parsedTodos;
   }
 }
 
 function todoInit(){
   loadTodos();
+  renderTodo();
   todoForm.addEventListener('submit', handleTodoSubmit);
 }
 
