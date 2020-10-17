@@ -1,17 +1,15 @@
 const wrap = document.querySelector('.wrap');
 
-const IMAGE_COUNT = 4;
+const API_KEY = "qC9hbGbqmmL1tzJchmK5EB5DRNaEFx8xnqNjOwuVmPw";
 
-function printImage(imgNumber){
-  wrap.style.backgroundImage = `url(images/${imgNumber}.jpg)`;
-}
-
-function genRandomNumber(){
-  return Math.ceil(Math.random() * IMAGE_COUNT);
+async function getRandomPhoto(){
+  const res = await fetch(`https://api.unsplash.com/photos/random?client_id=${API_KEY}`);
+  const data = await res.json();
+  const imgUrl = data.urls.regular;
+  wrap.style.backgroundImage = `url(${imgUrl})`;
 }
 
 function bgInit(){
-  const randomNumber = genRandomNumber();
-  printImage(randomNumber);
+  getRandomPhoto();
 }
 bgInit();
