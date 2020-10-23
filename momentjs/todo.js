@@ -1,6 +1,7 @@
 const todoForm = document.querySelector('.js-todo-form');
 const todoInput = todoForm.querySelector('input');
 const todoList = document.querySelector('.js-todo-list');
+const todoSorts = [...document.querySelectorAll('.js-sort')];
 
 const TODOS_LS = 'todos';
 
@@ -17,14 +18,14 @@ function handleToggleTodo(event){
   const { target } = event;
   let status;
   switch (target.dataset.status) {
-    case "is_ready": 
-      status = "is_progress";
+    case "open": 
+      status = "progress";
     break;
-    case "is_progress": 
-      status = "is_done";
+    case "progress": 
+      status = "done";
     break;
     default:
-      status = "is_ready";
+      status = "open";
   }
   target.dataset.status = status;
   todos = todos.map(todo => {
@@ -68,7 +69,7 @@ function handleTodoSubmit(event){
   const todoObj = {
     id: Date.now(),
     text: todoInput.value,
-    status: "is_ready"
+    status: "open"
   }
   addTodo(todoObj);
   renderTodo();
@@ -77,9 +78,32 @@ function handleTodoSubmit(event){
   todoInput.focus();
 }
 
-function renderTodo() {
+function handleSort(event) {
+  const {target} = event;
+  const { dataset: {status}} = target;
+  const isPressed = target.ariaPressed === "true";
+  todoSorts.forEach(sort => {
+    if (sort === target) {
+      target.ariaPressed = isPressed ? "false" : "true";
+    } else {
+      sort.ariaPressed = "false";
+    }
+  })
+  if (!isPressed) {
+    renderTodo(sort = status);
+  } else {
+    renderTodo(sort = false);
+  }
+}
+
+function renderTodo(sort = false) {
   todoList.innerHTML = '';
-  todos.forEach(todo => {
+  if (!sort) {
+    viewTodos = todos  
+  } else {
+    viewTodos = todos.filter(todo => todo.status === sort);
+  }
+  viewTodos.forEach(todo => {
     paintTodo(todo)
   })
 }
@@ -96,6 +120,7 @@ function todoInit(){
   loadTodos();
   renderTodo();
   todoForm.addEventListener('submit', handleTodoSubmit);
+  todoSorts.forEach(sort => sort.addEventListener('click', handleSort))
 }
 
 todoInit();
