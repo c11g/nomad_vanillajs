@@ -1,0 +1,4 @@
+const config = {
+  UNSPLASH_API_KEY: "qC9hbGbqmmL1tzJchmK5EB5DRNaEFx8xnqNjOwuVmPw",
+  WEHATHER_API_KEY: "9e84af8f0c78d3f82698d7750262af94"
+}
